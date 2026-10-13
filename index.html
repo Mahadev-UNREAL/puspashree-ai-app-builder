@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#10131b">
+<meta name="description" content="Puspashree AI Studio APK Builder">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Puspashree AI Studio APK Builder</title>
+<style>
+:root{color-scheme:dark;--bg:#0d1017;--panel:#171c27;--panel2:#202737;--text:#f4f6fb;--muted:#a7b0c2;--line:#30394b;--accent:#9c8cff;--cyan:#70e0d1;--danger:#ff8d9b}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 85% 0%,#252149 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 system-ui,-apple-system,Segoe UI,Roboto,sans-serif}
+main{max-width:960px;margin:auto;padding:20px 16px 48px}.top{display:flex;align-items:center;gap:12px;margin:6px 0 24px}.logo{width:46px;height:46px;border-radius:14px;background:linear-gradient(135deg,var(--accent),#5cdecb);display:grid;place-items:center;color:#10131b;font-size:23px;font-weight:900}.brand{font-weight:800;font-size:17px;line-height:1.2}.sub{font-size:12px;color:var(--muted);margin-top:4px}.pill{margin-left:auto;border:1px solid #645c91;color:#d6d0ff;border-radius:999px;padding:5px 9px;font-size:11px;white-space:nowrap}
+h1{font-size:clamp(27px,5vw,40px);line-height:1.1;letter-spacing:-1px;margin:0 0 12px}.intro{color:var(--muted);max-width:680px;margin:0 0 24px}.grid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px}.card{background:linear-gradient(180deg,#1a202d,#151a24);border:1px solid var(--line);border-radius:20px;padding:18px;min-width:0}.card h2{font-size:17px;margin:0 0 6px}.hint{color:var(--muted);font-size:13px;margin:0 0 16px}.drop{border:1.5px dashed #626b83;border-radius:16px;text-align:center;padding:26px 14px;background:#121722;cursor:pointer}.drop strong{display:block;margin:9px 0 4px}.drop small{color:var(--muted)}.uploadicon{font-size:28px}.btn{border:0;border-radius:12px;padding:12px 15px;font:inherit;font-weight:750;cursor:pointer;background:var(--accent);color:#11131b;width:100%;margin-top:14px}.btn.secondary{background:#293247;color:var(--text);border:1px solid #414c64}.btn:disabled{opacity:.45;cursor:not-allowed}.status{display:flex;align-items:center;gap:9px;border:1px solid var(--line);border-radius:12px;padding:11px;margin-top:12px;font-size:13px;color:var(--muted)}.dot{width:8px;height:8px;border-radius:50%;background:#8d95a7;flex:none}.dot.good{background:var(--cyan)}.dot.bad{background:var(--danger)}.sectiontitle{display:flex;align-items:center;justify-content:space-between;margin:22px 0 10px}.sectiontitle h2{font-size:18px;margin:0}.count{font-size:12px;color:var(--muted)}.project{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line)}.project:last-child{border-bottom:0}.picon{width:40px;height:40px;border-radius:12px;background:#292542;display:grid;place-items:center;font-size:19px;flex:none}.pname{font-weight:700;overflow-wrap:anywhere}.pmeta{font-size:12px;color:var(--muted)}.empty{color:var(--muted);padding:14px 0;font-size:13px}.tag{font-size:11px;border:1px solid var(--line);border-radius:7px;padding:3px 7px;color:#d7dceb;margin-left:auto;white-space:nowrap}.steps{display:grid;gap:12px}.step{display:flex;gap:11px}.num{width:26px;height:26px;flex:none;display:grid;place-items:center;border-radius:9px;background:#2c2947;color:#d8d2ff;font-weight:800}.step strong{display:block;font-size:13px}.step span{display:block;color:var(--muted);font-size:12px;margin-top:2px}.notice{border:1px solid #645a35;background:#2b2618;color:#f4dfa2;padding:12px;border-radius:12px;font-size:12px;margin-top:14px}.footer{font-size:12px;color:var(--muted);margin-top:22px;text-align:center}.hidden{display:none!important}
+@media(max-width:700px){.grid{grid-template-columns:1fr}.pill{display:none}main{padding:15px 12px 36px}.card{padding:15px}.drop{padding:22px 10px}}
+</style>
+</head>
+<body>
+<main>
+  <header class="top"><div class="logo">P</div><div><div class="brand">Puspashree AI Studio</div><div class="sub">APK Builder · Mobile cloud workflow</div></div><div class="pill">APK ONLY</div></header>
+  <h1>Turn your AI Studio project into an APK.</h1>
+  <p class="intro">Upload a ZIP exported from your own Google AI Studio project. This starter app checks the project structure and prepares it for a connected cloud build service.</p>
+  <div class="grid">
+    <section class="card">
+      <h2>Import project</h2><p class="hint">Native Android and web projects are supported for detection.</p>
+      <label class="drop" id="drop" for="zipFile"><span class="uploadicon">⇧</span><strong>Choose project ZIP</strong><small>Tap to browse files on your phone</small></label>
+      <input class="hidden" id="zipFile" type="file" accept=".zip,application/zip">
+      <div id="fileStatus" class="status"><span class="dot"></span><span>No project selected yet.</span></div>
+      <div id="details" class="hidden">
+        <div class="status"><span class="dot good"></span><span id="detected"></span></div>
+        <button id="saveBtn" class="btn">Save project to dashboard</button>
+        <button id="buildBtn" class="btn secondary" disabled>Build APK in cloud</button>
+      </div>
+      <div class="notice">Cloud compilation is not connected yet. This interface will not pretend a build succeeded or provide a fake APK.</div>
+    </section>
+    <section class="card">
+      <h2>Build workflow</h2><p class="hint">Your intended workflow at a glance.</p>
+      <div class="steps">
+        <div class="step"><div class="num">1</div><div><strong>Upload ZIP</strong><span>Select an exported project file from your phone.</span></div></div>
+        <div class="step"><div class="num">2</div><div><strong>Detect project type</strong><span>Check Gradle/Android or React/web project markers.</span></div></div>
+        <div class="step"><div class="num">3</div><div><strong>Cloud compile</strong><span>Requires a secure build API and isolated runner.</span></div></div>
+        <div class="step"><div class="num">4</div><div><strong>Download APK</strong><span>Available only after the server verifies a real APK.</span></div></div>
+      </div>
+    </section>
+  </div>
+  <div class="sectiontitle"><h2>Your projects</h2><span class="count" id="count">0 saved</span></div>
+  <section class="card" id="projects"><div class="empty">No saved projects. Import a ZIP to get started.</div></section>
+  <div class="footer">Puspashree AI Studio APK Builder · Starter prototype · Project details are stored in this browser only.</div>
+</main>
+<script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
+<script>
+const $=id=>document.getElementById(id);
+let current=null;
+const STORE='puspashree_apk_builder_projects_v1';
+function load(){try{return JSON.parse(localStorage.getItem(STORE)||'[]')}catch{return []}}
+function save(items){localStorage.setItem(STORE,JSON.stringify(items));render()}
+function showStatus(msg,kind=''){ $('fileStatus').innerHTML=`<span class="dot ${kind}"></span><span>${escapeHtml(msg)}</span>`}
+function escapeHtml(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function classify(names){
+ const lower=names.map(x=>x.toLowerCase());
+ const has=patterns=>lower.some(n=>patterns.some(p=>n===p||n.endsWith('/'+p)||n.includes('/'+p)));
+ const native=has(['settings.gradle','settings.gradle.kts'])||has(['gradlew'])||has(['androidmanifest.xml']);
+ const web=has(['package.json']);
+ if(native&&web)return {type:'Hybrid / mixed project',note:'Both Android and web markers found. Backend should inspect before building.'};
+ if(native)return {type:'Native Android project',note:'Gradle or Android manifest markers detected.'};
+ if(web)return {type:'Web project',note:'package.json detected. A compatible Android wrapper will be required.'};
+ return {type:'Unknown project type',note:'No common Android or web project markers were found.'};
+}
+$('zipFile').addEventListener('change',async e=>{
+ const file=e.target.files[0];current=null;$('details').classList.add('hidden');
+ if(!file)return;
+ if(!file.name.toLowerCase().endsWith('.zip')){showStatus('Please choose a ZIP file.','bad');return}
+ showStatus('Inspecting ZIP structure…');
+ try{
+  if(!window.JSZip)throw new Error('ZIP inspection library did not load. Check your internet connection and reload.');
+  const zip=await JSZip.loadAsync(file);
+  const names=Object.keys(zip.files).filter(n=>!zip.files[n].dir);
+  const result=classify(names);
+  current={id:crypto.randomUUID?crypto.randomUUID():String(Date.now()),name:file.name.replace(/\.zip$/i,''),fileName:file.name,size:file.size,type:result.type,note:result.note,files:names.length,created:new Date().toISOString(),zipFile:file};
+  showStatus(`${file.name} · ${(file.size/1024/1024).toFixed(2)} MB`,'good');
+  $('detected').textContent=`${result.type} — ${result.note}`;
+  $('details').classList.remove('hidden');
+  $('buildBtn').disabled=true;
+ }catch(err){showStatus(err.message||'Could not read ZIP file.','bad')}
+});
+$('saveBtn').addEventListener('click',()=>{
+ if(!current)return;
+ const items=load();
+ items.unshift({id:current.id,name:current.name,fileName:current.fileName,size:current.size,type:current.type,note:current.note,files:current.files,created:current.created,status:'Not built'});
+ save(items);showStatus('Project metadata saved in this browser. The ZIP itself is not uploaded.','good');
+});
+$('buildBtn').addEventListener('click',()=>{
+ alert('Cloud build is not configured yet. Connect a secure build backend before enabling this action.');
+});
+function render(){
+ const items=load();$('count').textContent=`${items.length} saved`;
+ if(!items.length){$('projects').innerHTML='<div class="empty">No saved projects. Import a ZIP to get started.</div>';return}
+ $('projects').innerHTML=items.map(p=>`<div class="project"><div class="picon">${p.type.includes('Native')?'▣':p.type.includes('Web')?'⌘':'◇'}</div><div style="min-width:0;flex:1"><div class="pname">${escapeHtml(p.name)}</div><div class="pmeta">${escapeHtml(p.type)} · ${p.files} files · ${new Date(p.created).toLocaleDateString()}</div><div class="pmeta">${escapeHtml(p.status)}</div></div><button data-del="${escapeHtml(p.id)}" class="btn secondary" style="width:auto;margin:0;padding:8px 10px">Delete</button></div>`).join('');
+ $('projects').querySelectorAll('[data-del]').forEach(b=>b.addEventListener('click',()=>save(load().filter(p=>p.id!==b.dataset.del))));
+}
+$('drop').addEventListener('dragover',e=>{e.preventDefault();$('drop').style.borderColor='#9c8cff'});
+$('drop').addEventListener('dragleave',()=>$('drop').style.borderColor='');
+$('drop').addEventListener('drop',e=>{e.preventDefault();$('drop').style.borderColor='';const f=e.dataTransfer.files[0];if(f){const dt=new DataTransfer();dt.items.add(f);$('zipFile').files=dt.files;$('zipFile').dispatchEvent(new Event('change'))}});
+render();
+if('serviceWorker' in navigator && location.protocol.startsWith('http'))navigator.serviceWorker.register('./sw.js').catch(()=>{});
+</script>
+</body></html>
